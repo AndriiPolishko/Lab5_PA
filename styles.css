@@ -22,7 +22,6 @@ html, body {
     display: flex;
     justify-content: center;
     margin: auto;
-
     height: 100%;
     width: 80%;
 
@@ -41,25 +40,29 @@ html, body {
     width: 12.5%;
     background-color: var(--white);
 }
+
 .black_block {
     height: 100%;
     width: 12.5%;
     background-color: var(--black);
 }
+
 .row {
     display: flex;
     height: 12.5%;
     width: 100%;
 
 }
-/*article {*/
-/*    display: flex;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*}*/
-/*section {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    width: 12.5%;*/
-/*    height: 100%;*/
-/*}*/
+.figure {
+    border-radius: 100%;
+    height: 100%;
+    width: 100%;
+    background-color: var(--medium-gray);
+    display: inline-block;
+}
+
+.img {
+    height: 100px;
+    width: 100%;
+
+}
