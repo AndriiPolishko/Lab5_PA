@@ -5,7 +5,14 @@
     --black:#000;
 }
 
+
+
+p {
+    align-self: center;
+}
+
 html, body {
+    font-family: 'Poppins', sans-serif;
     position:fixed;
     top:0;
     bottom:0;
@@ -20,6 +27,7 @@ html, body {
 
 .table {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: auto;
     height: 100%;
