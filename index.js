@@ -32,7 +32,7 @@ $('.inner_table').on('click','#hare',()=> {
 });
 
 function color(fig1,fig2,fig3,fig4,fig5) {
-    if(document.getElementById('cur').innerText ===`Figure: ######` ) {
+    if(document.getElementById('cur').innerText ===`Figure: #####` ) {
         copyCreation(fig1);
 
         document.getElementById('cur').innerText=`Figure: ${fig1.id}`
@@ -43,7 +43,7 @@ function color(fig1,fig2,fig3,fig4,fig5) {
         fig1.style.backgroundColor = "green";*/
     }
     else {
-        document.getElementById('cur').innerText=`Figure: ######`
+        document.getElementById('cur').innerText=`Figure: #####`
         cur_fig = undefined
         cur_id = undefined
         cur_parent = undefined
@@ -67,7 +67,7 @@ blacks.forEach((black)=> {
                     if(is_move_legal(cur_parent,black)) {
                         cur_parent.innerHTML = ""
                         black.appendChild(cur_fig)
-                        document.getElementById('cur').innerText = `Figure: ######`
+                        document.getElementById('cur').innerText = `Figure: #####`
                         cur_parent = cur_fig.parentNode
                         tmp = cur_parent
                         cur_fig = undefined
