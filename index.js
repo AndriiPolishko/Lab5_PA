@@ -4,14 +4,11 @@ let wolf3 = document.getElementById('wolf3');
 let wolf4 = document.getElementById('wolf4');
 let hare = document.getElementById('hare')
 
-let figures = document.querySelectorAll('.figure')
-
 let blacks = document.querySelectorAll('.black_block')
 
 let cur_fig;
 let cur_id;
 let cur_parent;
-
 let tmp;
 
 $('.inner_table').on('click','#wolf1',()=> {
@@ -30,30 +27,12 @@ $('.inner_table').on('click','#wolf4',()=> {
     color(wolf4,wolf2,wolf3,hare,wolf1);
 });
 
-/*
-wolf1.addEventListener('click',()=> {
-    color(wolf1,wolf2,wolf3,hare,wolf4);
-})
-
-wolf2.addEventListener('click',()=> {
-    color(wolf2,wolf1,wolf3,hare,wolf4);
-})
-
-wolf3.addEventListener('click',()=> {
-    color(wolf3,wolf2,wolf1,hare,wolf4);
-})
-
-wolf4.addEventListener('click',()=> {
-    color(wolf4,wolf2,wolf3,hare,wolf1);
-})
-*/
-hare.addEventListener('click',()=> {
+$('.inner_table').on('click','#hare',()=> {
     color(hare,wolf2,wolf3,wolf1,wolf4);
-})
-
+});
 
 function color(fig1,fig2,fig3,fig4,fig5) {
-    if(document.getElementById('cur').innerText ===`Figure: ###` ) {
+    if(document.getElementById('cur').innerText ===`Figure: ######` ) {
         copyCreation(fig1);
 
         document.getElementById('cur').innerText=`Figure: ${fig1.id}`
@@ -64,55 +43,45 @@ function color(fig1,fig2,fig3,fig4,fig5) {
         fig1.style.backgroundColor = "green";*/
     }
     else {
-        document.getElementById('cur').innerText=`Figure: ###`
+        document.getElementById('cur').innerText=`Figure: ######`
         cur_fig = undefined
         cur_id = undefined
-
+        cur_parent = undefined
     }
 }
 
 function copyCreation(fig1) {
     cur_fig = fig1.cloneNode(true,true)
     cur_id = fig1.id
-    cur_fig.parentNode = fig1.parentNode
-    cur_parent=fig1.parentNode
-}
-
-
-function move_wolf(from_id,to_id) {
-        return  +to_id[0] > +from_id[0]
+    cur_parent = fig1.parentNode
 }
 
 blacks.forEach((black)=> {
     black.addEventListener('click',()=> {
 
-            if(cur_fig!==undefined && black.innerHTML==="") {
+            if(cur_fig !== undefined && black.innerHTML === "") {
 
+                    if(cur_parent == null)
+                        cur_parent = tmp
 
-                if(cur_fig==undefined) {
-
-                }
-                else {
-                    console.log(tmp)
-                    if(cur_parent==null)
-                        cur_parent=tmp
-                    cur_parent.innerHTML=""
-
-                    black.appendChild(cur_fig)
-                    document.getElementById('cur').innerText=`Figure: ###`
-                    cur_parent=cur_fig.parentNode
-
-                    //console.log( cur_parent.innerHTML)
-                    tmp = cur_parent
-                    cur_fig=undefined
-                    console.log( cur_parent)
-                }
-
-
+                    if(is_move_legal(cur_parent,black)) {
+                        cur_parent.innerHTML = ""
+                        black.appendChild(cur_fig)
+                        document.getElementById('cur').innerText = `Figure: ######`
+                        cur_parent = cur_fig.parentNode
+                        tmp = cur_parent
+                        cur_fig = undefined
+                    }
             }
 
 
     })
 })
 
+function is_move_legal(from,to) {
+    let bool1 = (+to.id[0] - +from.id[0] === 1)
+    let bool2 = (+to.id[2] - +from.id[2] === 1)
+    let bool3 = (+to.id[2] - +from.id[2] === -1)
+    return (bool1 && (bool2 ||bool3) )
+}
 
