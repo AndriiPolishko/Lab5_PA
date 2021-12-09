@@ -9,7 +9,7 @@ let blacks = document.querySelectorAll('.black_block')
 let cur_fig;
 let cur_id;
 let cur_parent;
-let tmp;
+
 
 $('.inner_table').on('click','#wolf1',()=> {
     color(wolf1,wolf2,wolf3,hare,wolf4)
@@ -36,40 +36,32 @@ function color(fig1,fig2,fig3,fig4,fig5) {
         copyCreation(fig1);
 
         document.getElementById('cur').innerText=`Figure: ${fig1.id}`
-        /*fig2.style.backgroundColor =
-            fig3.style.backgroundColor =
-                fig4.style.backgroundColor =
-                    fig5.style.backgroundColor = "var(--medium-gray)";
-        fig1.style.backgroundColor = "green";*/
+
     }
     else {
         document.getElementById('cur').innerText=`Figure: #####`
         cur_fig = undefined
         cur_id = undefined
-        cur_parent = undefined
+
     }
 }
 
 function copyCreation(fig1) {
     cur_fig = fig1.cloneNode(true,true)
     cur_id = fig1.id
-    cur_parent = fig1.parentNode
+    cur_parent = document.getElementById(cur_id).parentNode
+
 }
 
 blacks.forEach((black)=> {
     black.addEventListener('click',()=> {
 
             if(cur_fig !== undefined && black.innerHTML === "") {
-
-                    if(cur_parent == null)
-                        cur_parent = tmp
-
                     if(is_move_legal(cur_parent,black)) {
                         cur_parent.innerHTML = ""
                         black.appendChild(cur_fig)
                         document.getElementById('cur').innerText = `Figure: #####`
                         cur_parent = cur_fig.parentNode
-                        tmp = cur_parent
                         cur_fig = undefined
                     }
             }
