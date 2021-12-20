@@ -33,20 +33,20 @@ export function checkEnd(hare_parent) {
 
         }
 
-    if( parent_id[1]==="8")
+    else if( parent_id[1]==="8")
         if(front_left.innerHTML!=="" && back_left.innerHTML!=="" ){
             alert("wolfs won")
 
         }
 
-    if(parent_id[1]==="1")
+    else if(parent_id[1]==="1")
         if(front_right.innerHTML!=="" && back_right.innerHTML!=="" ) {
             alert("wolfs won")
 
         }
 
 
-    if(front_right.innerHTML!=="" && back_right.innerHTML!=="" && front_left.innerHTML!=="" && back_left.innerHTML!==""){
+    else if(front_right.innerHTML!=="" && back_right.innerHTML!=="" && front_left.innerHTML!=="" && back_left.innerHTML!==""){
         alert("wolfs won")
 
     }
