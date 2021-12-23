@@ -22,15 +22,15 @@ export function checkHareMoves(id) {
     else if(id[2]==="8") {
         if(document.getElementById(`${(+id[0]-1).toString()+"/7"}`).innerHTML === "")
             moves.push(document.getElementById(`${(+id[0]-1).toString()+"/7"}`).id)
-/*        if(document.getElementById(`${(+id[0]+1).toString()+"/7"}`).innerHTML === "")
-            moves.push(document.getElementById(`${(+id[0]+1).toString()+"/7"}`).id)*/
+        if(document.getElementById(`${(+id[0]+1).toString()+"/7"}`).innerHTML === "")
+            moves.push(document.getElementById(`${(+id[0]+1).toString()+"/7"}`).id)
     }
 
     else if(id[2]==="1") {
         if(document.getElementById(`${(+id[0]-1).toString()+"/2"}`).innerHTML === "")
             moves.push(document.getElementById(`${(+id[0]-1).toString()+"/2"}`).id)
-/*        if(document.getElementById(`${(+id[0]+1).toString()+"/2"}`).innerHTML === "")
-            moves.push(document.getElementById(`${(+id[0]+1).toString()+"/2"}`).id)*/
+        if(document.getElementById(`${(+id[0]+1).toString()+"/2"}`).innerHTML === "")
+            moves.push(document.getElementById(`${(+id[0]+1).toString()+"/2"}`).id)
     }
 
     else {
@@ -39,11 +39,11 @@ export function checkHareMoves(id) {
         if(document.getElementById(`${(+id[0]-1).toString()+"/"+(+id[2]+1).toString()}`).innerHTML === "")
             moves.push(document.getElementById(`${(+id[0]-1).toString()+"/"+(+id[2]+1).toString()}`).id)
 
-/*        if(document.getElementById(`${(+id[0]+1).toString()+"/"+(+id[2]+1).toString()}`).innerHTML === "")
+        if(document.getElementById(`${(+id[0]+1).toString()+"/"+(+id[2]+1).toString()}`).innerHTML === "")
             moves.push(document.getElementById(`${(+id[0]+1).toString()+"/"+(+id[2]+1).toString()}`).id)
 
         if(document.getElementById(`${(+id[0]+1).toString()+"/"+(+id[2]-1).toString()}`).innerHTML === "")
-            moves.push(document.getElementById(`${(+id[0]+1).toString()+"/"+(+id[2]-1).toString()}`).id)*/
+            moves.push(document.getElementById(`${(+id[0]+1).toString()+"/"+(+id[2]-1).toString()}`).id)
     }
 
     return moves;

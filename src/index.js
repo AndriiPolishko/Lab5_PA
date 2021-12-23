@@ -6,6 +6,8 @@ import {checkHareMoves} from "./checkHareMove.js";
 import {checkEnd} from "./checkEnd.js";
 import {checkParents} from "./checkParents.js";
 
+import {checkWolfMoves} from "./checkWolfMove.js";
+
 start()
 
 let depth = 1;
@@ -97,9 +99,10 @@ blacks.forEach((black)=> {
                         document.getElementById('cur').innerText = `Figure: #####`
                         cur_parent = cur_fig.parentNode
                         checkParents(cur_parent,cur_fig,wolf1_parent,wolf2_parent,wolf3_parent,wolf4_parent,hare_parent)
-                        hareSteps(hare_parent.id)
+                        //hareSteps(hare_parent.id)
                         checkEnd(hare_parent)
-                        r_miniMax(hare_parent.id)
+
+                        r_miniMax(hare_parent.id,wolf1_parent,wolf2_parent,wolf3_parent,wolf4_parent,depth,false,-Infinity,Infinity)
                         cur_fig = undefined
                     }
             }
@@ -134,7 +137,7 @@ function hareSteps(harePosition) {
             queue.push(temp);
         }
     }
-    console.log(moves)
+    return moves
 }
 
 function getMin(moves) {
@@ -163,22 +166,81 @@ function getMax(moves) {
     return result[rand]
 }
 
-function miniMax(currentPositionHare,currentPositionWolf1,currentPositionWolf2,currentPositionWolf3,currentPositionWolf4,depth,isMax) {
+function miniMax(harePosition,currentPositionWolf1,currentPositionWolf2,currentPositionWolf3,currentPositionWolf4,depth,isMax,ALPHA,BETA) {
     if(depth==0) {
-        return hareSteps(currentPositionHare)
+        return hareSteps(harePosition)
     }
     if(isMax) {
         let maxEval = -Infinity
+        for(let i =0;i<4;i++) {
+            let moves
+            switch (i) {
+                case 0:
+                    moves = checkWolfMoves(currentPositionWolf1)
+                    break;
+                case 1:
+                    moves = checkWolfMoves(currentPositionWolf2)
+                    break;
+                case 2:
+                    moves = checkWolfMoves(currentPositionWolf3)
+                    break;
+                case 3:
+                    moves = checkWolfMoves(currentPositionWolf4)
+                    break;
+            }
 
+            let n = moves.length
+            for(let j = 0; j < n; j++) {
+                let path = miniMax(harePosition,moves[i],currentPositionWolf2,currentPositionWolf3,currentPositionWolf4,depth-1,false,ALPHA,BETA)
+                if(path.length<maxEval) {
+                    maxEval=path.length
+                    maxEval=moves[i]
+
+                }
+                path = path.length>maxEval ? maxEval : path.length;
+                ALPHA = ALPHA<maxEval ? maxEval : ALPHA;
+                if(BETA<=ALPHA)
+                    break;
+            }
+        }
+
+        return maxEval;
+    }
+    else {
+        let minEval = Infinity;
+        let theMove;
+        let moves = checkHareMoves(harePosition)
+        let n = moves.length
+        for(let i = 0;i < n;i++) {
+            let path = miniMax(moves[i],currentPositionWolf1,currentPositionWolf2,currentPositionWolf3,currentPositionWolf4,depth-1,true)
+            if(path.length<minEval) {
+                minEval=path.length
+                theMove=moves[i]
+            }
+            BETA = BETA<minEval?BETA:minEval;
+            if(BETA<=ALPHA)
+                break
+        }
+        return minEval;
     }
 
 }
 
-function r_miniMax(harePosition) {
+function r_miniMax(harePosition,currentPositionWolf1,currentPositionWolf2,currentPositionWolf3,currentPositionWolf4,depth,isMax,ALPHA,BETA) {
     let moves = checkHareMoves(harePosition)
-    let rand = Math.floor(Math.random()* moves.length)
-    let move = moves[rand]
-    let new_parent = document.getElementById(`${move}`)
+    let new_parent;
+    let move;
+    while(true) {
+        let rand = Math.floor(Math.random()* moves.length)
+        move= moves[rand]
+        new_parent = document.getElementById(`${move}`)
+        if(new_parent==null) {
+           alert("wolfs won")
+            break
+        }
+        if(new_parent.innerHTML==="")break;
+    }
+
     new_parent.innerHTML = hare_parent.innerHTML
     hare_parent.innerHTML= ""
     hare_parent = new_parent

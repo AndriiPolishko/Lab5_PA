@@ -1,5 +1,6 @@
 export function checkEnd(hare_parent) {
     let parent_id = hare_parent.id;
+    console.log(hare_parent)
     let front_left,front_right,back_left,back_right;
 
     let front_left_x,front_left_y;
